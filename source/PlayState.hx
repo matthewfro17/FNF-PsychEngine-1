@@ -184,6 +184,7 @@ class PlayState extends MusicBeatState
 	public var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
+	private var healthBarBorder:AttachedSprite;
 	public var healthBar:FlxBar;
 	var songPercent:Float = 0;
 
@@ -1111,8 +1112,18 @@ class PlayState extends MusicBeatState
 		healthBarBG.yAdd = -4;
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
-
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+	
+		healthBarBorder = new AttachedSprite('coolhealthborder');
+		healthBarBorder.y = FlxG.height * 0.89;
+		healthBarBorder.screenCenter(X);
+		healthBarBorder.scrollFactor.set();
+		healthBarBorder.visible = !ClientPrefs.hideHud;
+		healthBarBorder.xAdd = -4;
+		healthBarBorder.yAdd = -4;
+		add(healthBarBorder);
+		if(ClientPrefs.downScroll) healthBarBorder.y = 0.11 * FlxG.height;
+		
+	        healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
@@ -1156,6 +1167,7 @@ class PlayState extends MusicBeatState
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
+	        healthBarBorder.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
