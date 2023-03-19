@@ -1102,8 +1102,18 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
+	
+		healthBarBorder = new AttachedSprite('coolhealthborder');
+		healthBarBorder.y = FlxG.height * 0.89;
+		healthBarBorder.screenCenter(X);
+		healthBarBorder.scrollFactor.set();
+		healthBarBorder.visible = !ClientPrefs.hideHud;
+		healthBarBorder.xAdd = -4;
+		healthBarBorder.yAdd = -4;
+		add(healthBarBorder);
+		if(ClientPrefs.downScroll) healthBarBorder.y = 0.11 * FlxG.height;
 
-		healthBarBG = new AttachedSprite('coolhealthbar');
+	        healthBarBG = new AttachedSprite('coolhealthbar');
 		healthBarBG.y = FlxG.height * 0.89;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
@@ -1121,16 +1131,6 @@ class PlayState extends MusicBeatState
 		healthBar.alpha = ClientPrefs.healthBarAlpha;
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
-	
-		healthBarBorder = new AttachedSprite('coolhealthborder');
-		healthBarBorder.y = FlxG.height * 0.89;
-		healthBarBorder.screenCenter(X);
-		healthBarBorder.scrollFactor.set();
-		healthBarBorder.visible = !ClientPrefs.hideHud;
-		healthBarBorder.xAdd = -4;
-		healthBarBorder.yAdd = -4;
-		add(healthBarBorder);
-		if(ClientPrefs.downScroll) healthBarBorder.y = 0.11 * FlxG.height;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
@@ -1166,8 +1166,8 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
-		healthBarBG.cameras = [camHUD];
 	        healthBarBorder.cameras = [camHUD];
+		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
